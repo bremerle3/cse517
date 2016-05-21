@@ -1,0 +1,39 @@
+function K = computeK(kernel_type, X, Z, param)
+% function K = computeK(kernel_type, X, Z)
+% computes a matrix K such that Kij=g(x,z);
+% for three different function linear, rbf or polynomial.
+%
+% Input:
+% kernel_type: either 'linear','polynomial','rbf'
+% X: n input vectors of dimension d (dxn);
+% Z: m input vectors of dimension d (dxn);
+% param: kernel parameter (inverse kernel width gamma in case of RBF, degree in case of polynomial)
+%
+% OUTPUT:
+% K : nxm kernel matrix
+%
+%
+
+linear = 0;
+polynomial = 1;
+rbf = 2;
+
+if nargin<2,
+	Z=X;
+end;
+
+if (strcmp(kernel_type
+
+n = input('Enter a number: ');
+
+switch n
+    case linear
+        disp('negative one')
+    case polynomial
+        disp('zero')
+    case rbf
+        disp('positive one')
+end
+
+
+%%YOUR CODE HERE

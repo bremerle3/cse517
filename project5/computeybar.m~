@@ -1,0 +1,34 @@
+function ybar=computeybar(xTe)
+% function [ybar]=ybar(xTe);
+% 
+% computes the expected label 'ybar' for a set of inputs x
+% generated from two standard Normal distributions (one offset by OFFSET in
+% both dimensions.)
+%
+% INPUT:
+% xTe | a 2xn matrix of column input vectors
+% 
+% OUTPUT:
+% ybar | a 1xn vector of the expected label ybare(x)
+
+
+global OFFSET;
+
+[~,n]=size(xTe);
+%ybar=zeros(1,n);
+
+% Feel free to use the following function to compute p(x|y)
+normpdf=@(x,mu,sigma)   exp(-0.5 * ((x - mu)./sigma).^2) ./ (sqrt(2*pi) .* sigma);
+
+% Bayes: P(y|x) = P(x|y)*P(y)/(P(x|y1)*P(y) + P(x|y2)*P(y))
+mu_std = zeros(2,n);
+sigma_std = ones(2,n);
+mu_offset = OFFSET.*ones(2,n);
+
+x_y1_data = normpdf(xTe, mu_std, sigma_std);
+x_y2_data = normpdf(xTe, mu_offset, sigma_std);
+
+x_y1 = x_y1_data(1,:).*x_y1_data(2,:);
+x_y2 = x_y2_data(1,:).*x_y2_data(2,:);
+    
+ybar = ((x_y1*0.5)./(x_y1*0.5 + x_y2 *0.5)) + 2*((x_y2*0.5)./(x_y1*0.5 + x_y2 *0.5));
